@@ -32,6 +32,14 @@ tasks.withType<KotlinCompile> {
     }
 }
 
+tasks.jar {
+    enabled = false
+}
+
+tasks.bootJar {
+    enabled = true
+}
+
 tasks.withType<Test> {
     useJUnitPlatform()
 }
