@@ -30,8 +30,11 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
       
-    - name: Run Build with Gradle and Kotlin Linter
+    - name: Run Kotlin Linter
       run: ./gradlew ktlintCheck
+      
+    - name: Build with Gradle
+      run: ./gradlew build
       
     - name: Docker build
       run: |
