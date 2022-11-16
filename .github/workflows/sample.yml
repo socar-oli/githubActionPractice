@@ -26,7 +26,7 @@ jobs:
 
     steps:
     - name: Test env
-      run: echo "${{ inputs.message }}"
+      run: echo "${{ inputs.name.description }}"
 
 
 
