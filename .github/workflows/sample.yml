@@ -42,6 +42,19 @@ jobs:
        docker build -t spring-cicd .
        docker tag spring-cicd ${{ secrets.DOCKER_USERNAME }}/spring-cicd:${GITHUB_SHA::7}
        docker push ${{ secrets.DOCKER_USERNAME }}/spring-cicd:${GITHUB_SHA::7}
+       
+    - name: Deploy
+      uses: appleboy/ssh-action@master
+      with:
+        host: ec2-3-36-77-193.ap-northeast-2.compute.amazonaws.com
+        username: ubuntu
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        envs: GITHUB_SHA
+        script: |
+          docker pull ${{ secrets.DOCKER_USERNAME }}/spring-cicd:${GITHUB_SHA::7}
+          docker tag ${{ secrets.DOCKER_USERNAME }}/spring-cicd:${GITHUB_SHA::7} spring-cicd
+          docker stop server
+          docker run -d --rm --name server -p 80:8080 spring-cicd
         
         
   testing:
