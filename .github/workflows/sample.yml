@@ -26,7 +26,7 @@ jobs:
 
     steps:
     - name: Test env
-      run: echo "${{ github.event.inputs.message }}"
+      run: echo "${{ inputs.message }}"
 
 
 
